@@ -1,0 +1,172 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #fbfaf7;
+  --color-ink: #2b2b27;
+  --color-sage: #777851;
+  --color-line: #c9c8c0;
+  --color-soft: #f1f0ea;
+  --color-danger: #8b3e38;
+  --font-hand: "Coming Soon", "Comic Sans MS", cursive;
+  --font-wordmark: "Patrick Hand", "Comic Sans MS", cursive;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--font-hand);
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    outline: 2px solid var(--color-sage);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background: #dddfc3;
+    color: var(--color-ink);
+  }
+}
+
+@layer components {
+  .button-solid,
+  .button-outline,
+  .button-danger,
+  .button-quiet {
+    @apply inline-flex min-h-12 items-center justify-center gap-2 border px-5 py-3 text-center text-lg no-underline transition-colors disabled:cursor-not-allowed disabled:opacity-45;
+  }
+
+  .button-solid {
+    @apply border-ink bg-ink text-paper hover:bg-sage hover:border-sage;
+  }
+
+  .button-outline {
+    @apply border-ink bg-transparent text-ink hover:bg-ink hover:text-paper;
+  }
+
+  .button-danger {
+    @apply border-danger bg-danger text-paper hover:bg-ink hover:border-ink;
+  }
+
+  .button-quiet {
+    @apply border-transparent bg-transparent text-ink hover:border-line hover:bg-soft;
+  }
+
+  .quiet-link {
+    @apply text-ink underline decoration-line underline-offset-4 transition-colors hover:text-sage hover:decoration-sage;
+  }
+
+  .icon-button {
+    @apply inline-flex min-h-11 min-w-11 items-center justify-center border border-line bg-paper transition-colors hover:border-ink hover:bg-soft;
+  }
+
+  .field {
+    @apply mt-2 w-full border border-ink bg-paper px-4 py-3 text-lg text-ink placeholder:text-ink/38 disabled:opacity-55;
+    border-radius: 0;
+  }
+
+  .form-label {
+    @apply block text-lg text-ink;
+  }
+
+  .field-hint {
+    @apply mt-2 block text-right text-sm text-ink/45;
+  }
+
+  .check-row {
+    @apply flex cursor-pointer items-start gap-3 border border-line p-4 text-base leading-relaxed transition-colors hover:border-ink;
+  }
+
+  .check-row input {
+    @apply mt-1 size-5 shrink-0 accent-sage;
+  }
+
+  .check-row span {
+    @apply flex items-start gap-2;
+  }
+
+  .topic-chip {
+    @apply min-h-11 shrink-0 border border-transparent px-4 py-2 text-lg text-ink/65 transition-colors hover:border-line hover:text-ink disabled:opacity-45;
+  }
+
+  .topic-chip-active {
+    @apply border-ink bg-soft text-ink;
+  }
+
+  .topic-card {
+    @apply flex min-h-36 flex-col items-start border border-line bg-paper p-5 text-left transition-colors hover:border-ink hover:bg-soft;
+  }
+
+  .topic-card strong {
+    @apply text-2xl font-normal text-ink;
+  }
+
+  .topic-card span {
+    @apply mt-2 text-base leading-relaxed text-ink/58;
+  }
+
+  .topic-card-active {
+    @apply border-ink bg-soft;
+    box-shadow: inset 4px 0 0 var(--color-sage);
+  }
+
+  .reaction-button {
+    @apply inline-flex min-h-12 items-center gap-2 border border-line bg-paper px-4 py-2 text-base transition-colors hover:border-ink hover:bg-soft disabled:opacity-50;
+  }
+
+  .reaction-button-active {
+    @apply border-sage bg-soft text-sage;
+  }
+
+  .story-prose h2,
+  .story-prose h3 {
+    @apply text-sm tracking-[0.16em] text-sage uppercase;
+  }
+
+  .story-prose p {
+    @apply mt-3 text-xl leading-[1.85] text-ink/82;
+  }
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
