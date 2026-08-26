@@ -984,4 +984,5 @@ Do not create cross-session behavioural profiles. Use short retention and docume
 - fixed issue that under review posts were not visible in database
 - applied the final user testing labels
 - uploaded the project on github after running the final verification
-- 
+- deployed on vercel
+- tested the hosted version
