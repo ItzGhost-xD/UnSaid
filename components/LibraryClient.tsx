@@ -85,7 +85,7 @@ export function LibraryClient({ initialPosts }: { initialPosts: ExperiencePost[]
           </button>
         </form>
         <p className="mt-3 text-base leading-relaxed text-ink/55">
-          AI helps retrieve relevant entries written by real people.
+          This first testing version uses keyword search to retrieve entries written by real people. AI-based matching is planned for a later version.
         </p>
       </section>
 

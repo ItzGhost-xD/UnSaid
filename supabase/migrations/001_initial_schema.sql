@@ -18,13 +18,12 @@ create table if not exists public.posts (
   deleted_at timestamptz,
   search_document tsvector generated always as (
     to_tsvector(
-      'english',
+      'english'::regconfig,
       coalesce(title, '') || ' ' ||
       coalesce(topic, '') || ' ' ||
       coalesce(happened, '') || ' ' ||
       coalesce(helped, '') || ' ' ||
-      coalesce(wish_known, '') || ' ' ||
-      coalesce(array_to_string(tags, ' '), '')
+      coalesce(wish_known, '')
     )
   ) stored
 );

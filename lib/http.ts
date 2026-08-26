@@ -1,8 +1,26 @@
 import { NextResponse, type NextRequest } from "next/server";
 
+function firstForwardedValue(value: string | null) {
+  return value?.split(",", 1)[0]?.trim() || null;
+}
+
 export function isSameOrigin(request: NextRequest) {
   const origin = request.headers.get("origin");
-  return !origin || origin === new URL(request.url).origin;
+  if (!origin) return true;
+
+  try {
+    const originUrl = new URL(origin);
+    const requestUrl = new URL(request.url);
+    const host = firstForwardedValue(request.headers.get("x-forwarded-host"))
+      ?? request.headers.get("host")
+      ?? requestUrl.host;
+    const protocol = firstForwardedValue(request.headers.get("x-forwarded-proto"))
+      ?? requestUrl.protocol.replace(":", "");
+
+    return originUrl.host === host && originUrl.protocol === `${protocol}:`;
+  } catch {
+    return false;
+  }
 }
 
 export function requestIsTooLarge(request: NextRequest, maxBytes = 20_000) {
@@ -20,4 +38,3 @@ export function rateLimitError(retryAfterSeconds: number) {
     { status: 429, headers: { "Retry-After": String(retryAfterSeconds) } },
   );
 }
-
