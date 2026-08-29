@@ -18,11 +18,23 @@
 
   html {
     scroll-behavior: smooth;
+    color-scheme: light;
+  }
+
+  html[data-theme="dark"] {
+    --color-paper: #171915;
+    --color-ink: #eeede6;
+    --color-sage: #b9bd87;
+    --color-line: #484b42;
+    --color-soft: #242720;
+    --color-danger: #e19a92;
+    color-scheme: dark;
   }
 
   body {
     margin: 0;
     font-family: var(--font-hand);
+    transition: background-color 180ms ease, color 180ms ease;
   }
 
   button,
@@ -48,6 +60,11 @@
 
   ::selection {
     background: #dddfc3;
+    color: var(--color-ink);
+  }
+
+  html[data-theme="dark"] ::selection {
+    background: #50563a;
     color: var(--color-ink);
   }
 }
@@ -158,6 +175,18 @@
 
 .no-scrollbar::-webkit-scrollbar {
   display: none;
+}
+
+.theme-toggle-sun {
+  display: none;
+}
+
+html[data-theme="dark"] .theme-toggle-moon {
+  display: none;
+}
+
+html[data-theme="dark"] .theme-toggle-sun {
+  display: block;
 }
 
 @media (prefers-reduced-motion: reduce) {
