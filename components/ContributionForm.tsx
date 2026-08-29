@@ -95,8 +95,10 @@ export function ContributionForm() {
             <div className="flex items-start gap-3">
               <LockKey className="mt-1 shrink-0 text-sage" size={25} aria-hidden="true" />
               <div>
-                <h2 className="text-2xl">Keep your recovery code</h2>
-                <p className="mt-2 leading-relaxed text-ink/60">It is the only way to remove this contribution later. Unsaid cannot recover it for you.</p>
+                <h2 className="text-2xl">Save this code before leaving</h2>
+                <p className="mt-2 leading-relaxed text-ink/60">
+                  Use it on the <Link className="quiet-link" href="/manage">Remove a contribution</Link> page if you ever want to take this post out of the public library. Because Unsaid has no accounts, this is the only key to your post and we cannot recover or replace it.
+                </p>
               </div>
             </div>
             <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -139,6 +141,10 @@ export function ContributionForm() {
           </ol>
           <div className="mt-7 border-l-2 border-sage pl-4 text-base leading-relaxed text-ink/58">
             A different anonymous animal name is generated for every post. No profile follows you between contributions.
+          </div>
+          <div className="mt-5 border-l-2 border-line pl-4 text-base leading-relaxed text-ink/58">
+            <strong className="block font-normal text-ink">Your recovery code</strong>
+            After submitting, you will receive a private code. Save it—it is the only way to remove this post later.
           </div>
         </aside>
 
@@ -230,6 +236,18 @@ export function ContributionForm() {
                 </div>
               </div>
 
+              <div className="mt-4 border border-sage bg-paper p-5">
+                <div className="flex gap-3">
+                  <LockKey className="mt-1 shrink-0 text-sage" size={25} aria-hidden="true" />
+                  <div>
+                    <h2 className="text-2xl">How you can remove this post later</h2>
+                    <p className="mt-2 leading-relaxed text-ink/60">
+                      After submission, Unsaid will show you a private recovery code. Save or copy it, then enter it on the <Link className="quiet-link" href="/manage">Remove a contribution</Link> page whenever you want this post removed. The code is never public, and Unsaid cannot retrieve a lost code because no account is created.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
               <div className="mt-6 space-y-4">
                 <label className="check-row">
                   <input type="checkbox" checked={privacyChecked} onChange={(event) => setPrivacyChecked(event.target.checked)} />
@@ -255,4 +273,3 @@ export function ContributionForm() {
     </main>
   );
 }
-
