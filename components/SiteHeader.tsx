@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { List, X } from "@phosphor-icons/react";
+import { List, Moon, Sun, X } from "@phosphor-icons/react";
 import { useState } from "react";
 
 const navigation = [
@@ -14,6 +14,18 @@ const navigation = [
 function isCurrent(pathname: string, href: string) {
   if (href === "/") return pathname === "/" || pathname.startsWith("/experiences/");
   return pathname.startsWith(href);
+}
+
+function toggleTheme() {
+  const root = document.documentElement;
+  const nextTheme = root.dataset.theme === "dark" ? "light" : "dark";
+  root.dataset.theme = nextTheme;
+
+  try {
+    window.localStorage.setItem("unsaid-theme", nextTheme);
+  } catch {
+    // The selected theme still applies for this visit when storage is unavailable.
+  }
 }
 
 export function SiteHeader() {
@@ -31,16 +43,6 @@ export function SiteHeader() {
         >
           UNSAID
         </Link>
-
-        <button
-          type="button"
-          className="ml-auto inline-flex min-h-11 min-w-11 items-center justify-center border border-ink bg-paper lg:hidden"
-          aria-label={menuOpen ? "Close navigation" : "Open navigation"}
-          aria-expanded={menuOpen}
-          onClick={() => setMenuOpen((open) => !open)}
-        >
-          {menuOpen ? <X size={24} aria-hidden="true" /> : <List size={24} aria-hidden="true" />}
-        </button>
 
         <nav
           aria-label="Main navigation"
@@ -69,6 +71,28 @@ export function SiteHeader() {
             Leave something behind
           </Link>
         </nav>
+
+        <div className="ml-auto flex items-center gap-2 lg:ml-4">
+          <button
+            type="button"
+            className="icon-button"
+            aria-label="Switch between light and dark mode"
+            title="Switch between light and dark mode"
+            onClick={toggleTheme}
+          >
+            <Moon className="theme-toggle-moon" size={22} aria-hidden="true" />
+            <Sun className="theme-toggle-sun" size={22} aria-hidden="true" />
+          </button>
+          <button
+            type="button"
+            className="inline-flex min-h-11 min-w-11 items-center justify-center border border-ink bg-paper lg:hidden"
+            aria-label={menuOpen ? "Close navigation" : "Open navigation"}
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            {menuOpen ? <X size={24} aria-hidden="true" /> : <List size={24} aria-hidden="true" />}
+          </button>
+        </div>
       </div>
     </header>
   );
