@@ -6,6 +6,22 @@ import { SessionBootstrap } from "@/components/SessionBootstrap";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 
+const themeBootstrapScript = `
+  (function () {
+    try {
+      var savedTheme = window.localStorage.getItem("unsaid-theme");
+      var theme = savedTheme === "light" || savedTheme === "dark"
+        ? savedTheme
+        : window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light";
+      document.documentElement.dataset.theme = theme;
+    } catch (error) {
+      document.documentElement.dataset.theme = "light";
+    }
+  })();
+`;
+
 export const metadata: Metadata = {
   title: {
     default: "Unsaid — Human experiences, left behind",
@@ -20,7 +36,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeBootstrapScript }} />
+      </head>
       <body className="min-h-screen bg-paper text-ink antialiased">
         <SessionBootstrap />
         <div className="border-b border-line bg-soft px-5 py-2 text-center text-sm tracking-[0.08em] text-ink/65">
